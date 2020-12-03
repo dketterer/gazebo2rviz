@@ -29,6 +29,7 @@ def is_ignored(model):
 
 def calculate_tfs(prefix):
   world.for_all_joints(calculate_joint_tf)
+  print(tfs)
   for tf in tfs:
     tf[0] = prefix + pysdf.sdf2tfname(tf[0])
     tf[1] = prefix + pysdf.sdf2tfname(tf[1])
@@ -46,7 +47,7 @@ def calculate_joint_tf(joint, full_jointname):
 
 def publish_tf():
   for tf in tfs:
-    #print(tf)
+    print(tf)
     tfBroadcaster.sendTransform(tf[2], tf[3], rospy.get_rostime(), tf[1], tf[0])
 
 
@@ -75,7 +76,7 @@ def main():
   rospy.loginfo('Spinning')
   r = rospy.Rate(args.freq)
   while not rospy.is_shutdown():
-    publish_tf();
+    publish_tf()
     r.sleep()
 
 
